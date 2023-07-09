@@ -1,0 +1,63 @@
+﻿@model List<StudentInformation.Models.Student>;
+
+<h2>Index</h2>
+
+<a class="text-decoration-none" asp-action="Create">Create Student</a>
+
+<form asp-action="Index" method="get">
+    <div class="my-3 row">
+        <div class="col-4">
+            <input type="text" class="form-control" name="SearchString" value="@ViewData["CurrentFilter"]"
+                placeholder="Search by Name" />
+        </div>
+        <div class="col-6">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<table class="table table-hover">
+    <caption>* Click Name or Gender to Sort in Descending Order</caption>
+    <thead>
+        <tr>
+            <th scope="col">
+                <a class="text-dark text-decoration-none" asp-action="Index"
+                    asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
+            </th>
+            <th scope="col">Gender</th>
+            <th scope="col">
+                <a class="text-dark text-decoration-none" asp-action="Index"
+                    asp-route-sortOrder="@ViewData["ResultSortParm"]">Result</a>
+            </th>
+            <th scope="col">Is Contestant</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Gender</td>
+                <td>@student.Result.ToString("0.00")</td>
+                <td>
+                    @{
+                        string isContestant = student.IsContestant ? "Yes" : "No";
+                    }
+                    @isContestant
+                </td>
+                <td>
+                    <a class="text-decoration-none" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
+                </td>
+                <td>
+                    <a class="text-decoration-none" asp-action="Delete" asp-route-id="@student.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="text-decoration-none" asp-controller="Home" asp-action="Index">Back to Home</a>

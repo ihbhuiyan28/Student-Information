@@ -1,0 +1,13 @@
+﻿@model StudentInformation.Models.Student;
+
+<h2>Delete</h2>
+
+<hr />
+
+<p>Delete <b>@Model.Name</b> ?</p>
+
+<form asp-action="Delete">
+    <button type="submit" class="btn btn-danger mb-3">Delete</button>
+</form>
+
+<a class="text-decoration-none" asp-action="Index">Back to Index</a>
